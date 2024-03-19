@@ -10,7 +10,10 @@ export class PermissionGuard implements CanActivate {
   }
 
   canActivate(context: ExecutionContext): boolean {
-    const roles = this.reflector.get<string[]>('roles', context.getHandler());
+    const roles = this.reflector.get<string[]>(
+      'permissions',
+      context.getHandler(),
+    );
     if (!roles) {
       return true;
     }

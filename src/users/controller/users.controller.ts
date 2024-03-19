@@ -16,6 +16,8 @@ import { UserOutputDto } from '../dtos/user-output.dto';
 import { ApiPaginatedResponse } from 'src/common/decorators/api-paginated-response.decorator';
 import { CreateUserUseCase } from '../use-cases/create-user/create-user.usecase';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { PermissionGuard } from 'src/auth/permission.guard';
+import { Permissions } from 'src/auth/permission.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -24,9 +26,10 @@ export class UsersController {
     private readonly listUsersUseCase: ListUsersUseCase,
   ) {}
 
-  @Get()
+  @Permissions('users.get')
   @ApiPaginatedResponse(UserOutputDto)
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, PermissionGuard)
+  @Get()
   async index(
     @Query() listUsersInputDto: ListUsersInputDto,
   ): Promise<PaginatedOutputDto<UserOutputDto>> {

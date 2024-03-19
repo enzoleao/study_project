@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UsersRepository } from 'src/users/repositories/user.repository';
-import { AuthenticateInputDto } from '../dtos/authenticate-input.dto';
-import { IAuthenticate } from '../interface/auth.interface';
+import { AuthenticateInputDto } from '../../dtos/authenticate-input.dto';
+import { IAuthenticate } from '../../interface/auth.interface';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import passport from 'passport';
