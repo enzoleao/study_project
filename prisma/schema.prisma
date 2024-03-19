@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id        String   @id @default(uuid())
+  name      String
+  email      String @unique
+  roleId Int @default(2) @map("role_id")
+  password String
+  createdAt DateTime @map("created_at") @default(now())
+  updatedAt DateTime? @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  role    Roles    @relation(fields: [roleId], references: [id])
+
+
+  @@map("users")
+}
+
+model Roles {
+  id Int @id @default(autoincrement())
+  name String
+  users Users[]
+  permissions RolesHasPermissions[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("roles")
+}
+
+model Permissions {
+  id Int @id @default(autoincrement())
+  name String
+  resource String
+  type String
+  roles RolesHasPermissions[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("permissions")
+}
+
+model RolesHasPermissions {
+  roleId Int @map("role_id")
+  permissionId Int @map("permission_id")
+
+  role       Roles     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permissions @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  
+  @@id([roleId, permissionId])
+  @@map("roles_has_permissions")
+}
