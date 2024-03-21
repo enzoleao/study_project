@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PaginatedOutputDto } from 'src/common/dtos/paginated-output.dto';
 import { RolesHasPermissionsInputDto } from 'src/roles/dtos/roles-has-permission-input.dto';
-import { RolesHasPermissionOutPutDto } from 'src/roles/dtos/roles-has-permission.dto';
+import { RolesHasPermissionOutputDTO } from 'src/roles/dtos/roles-has-permission-output.dto';
 import { RolesRepository } from 'src/roles/repositories/roles.repository';
 
 interface IRolesHasPermissionUseCaseInput {
   rolesHasPermissionInputDto: RolesHasPermissionsInputDto;
 }
 interface IRolesHasPermissionCaseOutput {
-  rolesHasPermissionOutputDto: PaginatedOutputDto<RolesHasPermissionOutPutDto>;
+  rolesHasPermissionOutputDto: PaginatedOutputDto<RolesHasPermissionOutputDTO>;
 }
 
 @Injectable()
