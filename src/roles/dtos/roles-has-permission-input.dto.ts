@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 
@@ -24,9 +25,19 @@ export class RolesHasPermissionsInputDto {
 
   @IsString()
   @IsOptional()
+  @ApiProperty({
+    example: 1,
+    required: false,
+    type: Number,
+  })
   roleId?: number;
 
   @IsString()
   @IsOptional()
+  @ApiProperty({
+    example: 2,
+    required: false,
+    type: Number,
+  })
   permissionId?: number;
 }
