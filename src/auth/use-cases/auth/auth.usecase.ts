@@ -5,6 +5,7 @@ import { IAuthenticate } from '../../interface/auth.interface';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import passport from 'passport';
+
 interface IAuthUserUseCaseOutput {
   authenticateInputDto: IAuthenticate;
 }
