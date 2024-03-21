@@ -5,7 +5,7 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/common/database/prisma.service';
 import { IRolesHasPermissionsFilter } from 'src/roles/interfaces/roles-has-permission.interface';
 import { createPaginator } from 'prisma-pagination';
-import { RolesHasPermissionOutPutDto } from 'src/roles/dtos/roles-has-permission.dto';
+import { RolesHasPermissionOutputDTO } from 'src/roles/dtos/roles-has-permission-output.dto';
 
 @Injectable()
 export class IRolesRepository implements RolesRepository {
@@ -16,7 +16,7 @@ export class IRolesRepository implements RolesRepository {
 
   async findRolesPermissions(
     filters: IRolesHasPermissionsFilter,
-  ): Promise<PaginatedOutputDto<RolesHasPermissionOutPutDto>> {
+  ): Promise<PaginatedOutputDto<RolesHasPermissionOutputDTO>> {
     const where: Prisma.RolesHasPermissionsFindManyArgs['where'] = {};
     for (const key in filters) {
       if (key != 'page' && key != 'perPage') {
@@ -26,7 +26,7 @@ export class IRolesRepository implements RolesRepository {
     }
     const paginate = createPaginator({ perPage: filters.perPage ?? 10 });
     return paginate<
-      RolesHasPermissionOutPutDto,
+      RolesHasPermissionOutputDTO,
       Prisma.RolesHasPermissionsFindManyArgs
     >(
       this.rolesHasPermissionRepository,

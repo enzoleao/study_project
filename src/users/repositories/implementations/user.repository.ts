@@ -5,7 +5,7 @@ import { PrismaService } from 'src/common/database/prisma.service';
 import { PaginatedOutputDto } from 'src/common/dtos/paginated-output.dto';
 import { UsersRepository } from '../user.repository';
 import { IFindUsersFilter } from 'src/users/interfaces/find-users-filters.interface';
-import { UserOutputDto } from 'src/users/dtos/user-output.dto';
+import { UserOutputDTO } from 'src/users/dtos/user-output.dto';
 import { IUserProps } from 'src/users/interfaces/user.interface';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class IUserRepository implements UsersRepository {
 
   private readonly userRepository = this.prismaService.users;
 
-  async create(user: IUserProps): Promise<UserOutputDto> {
+  async create(user: IUserProps): Promise<UserOutputDTO> {
     const userCreated = await this.userRepository.create({
       data: {
         name: user.name,
@@ -27,7 +27,7 @@ export class IUserRepository implements UsersRepository {
 
   async findAll(
     filters: IFindUsersFilter,
-  ): Promise<PaginatedOutputDto<UserOutputDto>> {
+  ): Promise<PaginatedOutputDto<UserOutputDTO>> {
     const where: Prisma.UsersFindManyArgs['where'] = {};
     for (const key in filters) {
       if (key != 'page' && key != 'perPage') {
@@ -37,7 +37,7 @@ export class IUserRepository implements UsersRepository {
 
     const paginate = createPaginator({ perPage: filters.perPage ?? 10 });
 
-    return paginate<UserOutputDto, Prisma.UsersFindManyArgs>(
+    return paginate<UserOutputDTO, Prisma.UsersFindManyArgs>(
       this.userRepository,
       {
         where,

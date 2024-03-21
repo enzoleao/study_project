@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UsersRepository } from 'src/users/repositories/user.repository';
-import { AuthenticateInputDto } from '../../dtos/authenticate-input.dto';
+import { AuthenticateInputDTO } from '../../dtos/authenticate-input.dto';
 import { IAuthenticate } from '../../interface/auth.interface';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
@@ -15,7 +15,7 @@ export class AuthUseCase {
   constructor(private readonly usersRepository: UsersRepository) {}
 
   async execute(
-    authenticateInputDto: AuthenticateInputDto,
+    authenticateInputDto: AuthenticateInputDTO,
   ): Promise<IAuthUserUseCaseOutput> {
     const user = await this.usersRepository.findUnique(
       authenticateInputDto.email,
