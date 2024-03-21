@@ -1,17 +1,21 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { PrismaService } from 'src/common/database/prisma.service';
+import { RolesHasPermissionsUseCase } from 'src/roles/use-cases/roles-has-permissions/roles-has-permissions.usecase';
+
 @Injectable()
 export class PermissionGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
-    private readonly prismaService: PrismaService,
+    private readonly rolesHasPermissionsUseCase: RolesHasPermissionsUseCase,
   ) {}
-  private readonly rolesHasPermissionsRepository =
-    this.prismaService.rolesHasPermissions;
 
-  matchPermissions(roles: string[], userRole: any) {
-    return roles.some((role) => role === userRole);
+  async matchPermissions(role: number, permissionRequired: any[]) {
+    const usersPermissions = await this.rolesHasPermissionsUseCase.execute({
+      rolesHasPermissionInputDto: { roleId: role },
+    });
+    return usersPermissions.rolesHasPermissionOutputDto.data.some(
+      (i) => i.permission.name === permissionRequired[0],
+    );
   }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -24,15 +28,6 @@ export class PermissionGuard implements CanActivate {
     }
     const request = context.switchToHttp().getRequest();
     const user = request.user;
-    const userPermissions = await this.rolesHasPermissionsRepository.findMany({
-      where: {
-        roleId: user.roleId,
-      },
-      include: {
-        permission: true,
-      },
-    });
-
-    return this.matchPermissions(permission, userPermissions);
+    return this.matchPermissions(user.role.id, permission);
   }
 }

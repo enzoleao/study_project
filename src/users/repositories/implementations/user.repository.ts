@@ -11,9 +11,6 @@ import { IUserProps } from 'src/users/interfaces/user.interface';
 @Injectable()
 export class IUserRepository implements UsersRepository {
   constructor(private readonly prismaService: PrismaService) {}
-  findByEmail() {
-    throw new Error('Method not implemented.');
-  }
 
   private readonly userRepository = this.prismaService.users;
 
