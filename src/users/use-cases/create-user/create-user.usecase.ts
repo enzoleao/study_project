@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { hash } from 'bcrypt';
 import { CreateUserInputDTO } from 'src/users/dtos/create-user-input.dto';
 import { CreateUserOutputDTO } from 'src/users/dtos/create-user-output.dto';
-import { IUserProps } from 'src/users/interfaces/user.interface';
+import { ICreateUserProps } from 'src/users/interfaces/user.interface';
 import { UsersRepository } from 'src/users/repositories/user.repository';
 
 interface ICreateUserUseCaseInput {
@@ -22,7 +22,7 @@ export class CreateUserUseCase {
   }: ICreateUserUseCaseInput): Promise<ICreateUserUseCaseOutput> {
     const passwordHashed = await hash(createUserInputDto.password, 8);
 
-    const user: IUserProps = {
+    const user: ICreateUserProps = {
       name: createUserInputDto.name,
       email: createUserInputDto.email,
       password: passwordHashed,

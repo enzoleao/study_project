@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateUserInputDTO } from '../dtos/create-user-input.dto';
 import { CreateUserOutputDTO } from '../dtos/create-user-output.dto';
 import { ListUsersUseCase } from '../use-cases/all-users/all-users.use.case';
@@ -12,6 +21,8 @@ import { PermissionGuard } from 'src/auth/permission.guard';
 import { Permissions } from 'src/auth/permission.decorator';
 import { ApiTags } from '@nestjs/swagger';
 import { ApiNormalResponse } from 'src/common/decorators/api-normal-response.decorator';
+import { UpdateUserInputDTO } from '../dtos/update-user-input.dto';
+import { UpdateUserUseCase } from '../use-cases/update-user/update-user.usecase';
 
 @ApiTags('Users')
 @Controller('users')
@@ -19,6 +30,7 @@ export class UsersController {
   constructor(
     private readonly createUserUseCase: CreateUserUseCase,
     private readonly listUsersUseCase: ListUsersUseCase,
+    private readonly updateUserUseCase: UpdateUserUseCase,
   ) {}
 
   @Permissions('users.get')
@@ -45,5 +57,21 @@ export class UsersController {
     });
 
     return userOutputDto;
+  }
+
+  @Permissions('users.update')
+  @Patch(':id')
+  @UseGuards(JwtAuthGuard, PermissionGuard)
+  async update(
+    @Param('id') id: string,
+    @Body() updateUserInputDto: UpdateUserInputDTO,
+  ) {
+    const { updateUserOutputDto } = await this.updateUserUseCase.execute(
+      updateUserInputDto,
+      id,
+    );
+    return {
+      updateUserOutputDto,
+    };
   }
 }

@@ -23,11 +23,11 @@ export class PermissionGuard implements CanActivate {
       'permissions',
       context.getHandler(),
     );
-    if (!permission) {
-      return true;
-    }
     const request = context.switchToHttp().getRequest();
     const user = request.user;
+    if (!permission || request.params.id === user.userId) {
+      return true;
+    }
     return this.matchPermissions(user.role.id, permission);
   }
 }

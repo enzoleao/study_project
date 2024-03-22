@@ -6,7 +6,9 @@ import { PaginatedOutputDto } from 'src/common/dtos/paginated-output.dto';
 import { UsersRepository } from '../user.repository';
 import { IFindUsersFilter } from 'src/users/interfaces/find-users-filters.interface';
 import { UserOutputDTO } from 'src/users/dtos/user-output.dto';
-import { IUserProps } from 'src/users/interfaces/user.interface';
+import { ICreateUserProps } from 'src/users/interfaces/user.interface';
+import { IUpdateUserProps } from 'src/users/interfaces/update-user.interface';
+import { UpdateUserOutputDTO } from 'src/users/dtos/update-user-output.dto';
 
 @Injectable()
 export class IUserRepository implements UsersRepository {
@@ -14,7 +16,7 @@ export class IUserRepository implements UsersRepository {
 
   private readonly userRepository = this.prismaService.users;
 
-  async create(user: IUserProps): Promise<UserOutputDTO> {
+  async create(user: ICreateUserProps): Promise<UserOutputDTO> {
     const userCreated = await this.userRepository.create({
       data: {
         name: user.name,
@@ -68,5 +70,15 @@ export class IUserRepository implements UsersRepository {
         role: true,
       },
     });
+  }
+  async update(
+    user: IUpdateUserProps,
+    userId: string,
+  ): Promise<UpdateUserOutputDTO> {
+    const response = await this.userRepository.update({
+      where: { id: userId },
+      data: user,
+    });
+    return response;
   }
 }
