@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { RolesModule } from './roles/roles.module';
+import { IsUniqueConstraint } from './common/validators/IsUniqueValidator/isUnique.class';
 
 @Module({
   imports: [
@@ -15,8 +16,9 @@ import { RolesModule } from './roles/roles.module';
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1h' },
+      signOptions: { expiresIn: 3600 },
     }),
   ],
+  providers: [IsUniqueConstraint],
 })
 export class AppModule {}
