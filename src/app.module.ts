@@ -16,7 +16,7 @@ import { IsUniqueConstraint } from './common/validators/IsUniqueValidator/isUniq
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: 3600 },
+      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN },
     }),
   ],
   providers: [IsUniqueConstraint],
