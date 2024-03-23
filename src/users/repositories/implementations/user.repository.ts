@@ -32,8 +32,14 @@ export class IUserRepository implements UsersRepository {
   ): Promise<PaginatedOutputDto<UserOutputDTO>> {
     const where: Prisma.UsersFindManyArgs['where'] = {};
     for (const key in filters) {
-      if (key != 'page' && key != 'perPage') {
-        where[key] = filters[key];
+      if (key !== 'page' && key !== 'perPage') {
+        if (Array.isArray(filters[key])) {
+          where[key] = {
+            in: filters[key],
+          };
+        } else {
+          where[key] = filters[key];
+        }
       }
     }
 

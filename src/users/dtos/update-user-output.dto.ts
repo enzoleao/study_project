@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
-import { isUnique } from 'src/common/validators/IsUniqueValidator/isUnique.decorator';
+import { isUnique } from 'src/common/validators/IsUniqueValidator/is-unique.decorator';
 
 export class UpdateUserOutputDTO {
   @IsOptional()

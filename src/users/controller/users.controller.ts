@@ -49,14 +49,15 @@ export class UsersController {
 
   @Post()
   @ApiNormalResponse(CreateUserOutputDTO)
-  async create(
-    @Body() createUserInputDto: CreateUserInputDTO,
-  ): Promise<CreateUserOutputDTO> {
+  async create(@Body() createUserInputDto: CreateUserInputDTO) {
     const { userOutputDto } = await this.createUserUseCase.execute({
       createUserInputDto,
     });
 
-    return userOutputDto;
+    return {
+      message: 'Usuário cadastrado com sucesso',
+      data: userOutputDto,
+    };
   }
 
   @Permissions('users.update')
@@ -71,7 +72,8 @@ export class UsersController {
       id,
     );
     return {
-      updateUserOutputDto,
+      message: 'Usuário atualizado com sucesso',
+      data: updateUserOutputDto,
     };
   }
 }

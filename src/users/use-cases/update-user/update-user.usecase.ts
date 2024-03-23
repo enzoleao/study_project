@@ -17,7 +17,9 @@ export class UpdateUserUseCase {
     updateUserInputDto: UpdateUserInputDTO,
     id: string,
   ): Promise<IUpdateUserUseCaseOutput> {
-    const passwordHashed = await hash(updateUserInputDto.password, 8);
+    const passwordHashed = updateUserInputDto.password
+      ? await hash(updateUserInputDto.password, 8)
+      : undefined;
 
     const user: IUpdateUserProps = {
       name: updateUserInputDto.name,
@@ -30,8 +32,8 @@ export class UpdateUserUseCase {
 
     return {
       updateUserOutputDto: {
-        name: user.name,
-        email: user.email,
+        name: updateUserInputDto.name,
+        email: updateUserInputDto.email,
       },
     };
   }

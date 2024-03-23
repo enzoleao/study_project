@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
+import { APP_PIPE } from '@nestjs/core';
 import { PrismaModule } from './common/database/prisma.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { RolesModule } from './roles/roles.module';
-import { IsUniqueConstraint } from './common/validators/IsUniqueValidator/isUnique.class';
+import { IsUniqueConstraint } from './common/validators/IsUniqueValidator/is-unique.class';
 
 @Module({
   imports: [
@@ -19,6 +20,12 @@ import { IsUniqueConstraint } from './common/validators/IsUniqueValidator/isUniq
       signOptions: { expiresIn: process.env.JWT_EXPIRES_IN },
     }),
   ],
-  providers: [IsUniqueConstraint],
+  providers: [
+    IsUniqueConstraint,
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
+    },
+  ],
 })
 export class AppModule {}

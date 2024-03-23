@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsOptional } from 'class-validator';
 
 export class ListUsersInputDto {
   @IsNumber()
@@ -31,7 +31,6 @@ export class ListUsersInputDto {
   })
   perPage?: number;
 
-  @IsString()
   @IsOptional()
   @ApiProperty({
     example: '550e8400-e29b-41d4-a716-446655440000',
@@ -39,7 +38,6 @@ export class ListUsersInputDto {
   })
   id?: string;
 
-  @IsString()
   @IsOptional()
   @ApiProperty({
     example: 'Juvenal Juvenio',
@@ -47,7 +45,6 @@ export class ListUsersInputDto {
   })
   name?: string;
 
-  @IsString()
   @IsOptional()
   @ApiProperty({
     example: 'admin@admin.com.br',
