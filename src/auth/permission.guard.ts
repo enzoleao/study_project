@@ -15,7 +15,6 @@ export class PermissionGuard implements CanActivate {
       rolesHasPermissionInputDto: { roleId: role },
     });
 
-    console.log(permissionRequired[0]);
     return usersPermissions.rolesHasPermissionOutputDto.data.some(
       (i) => i.permission.name === permissionRequired[0],
     );
@@ -27,14 +26,14 @@ export class PermissionGuard implements CanActivate {
       context.getHandler(),
     );
     const request = context.switchToHttp().getRequest();
-    const user = request.user;
-    const propriety = permission.fields[0].proprietyName;
-    const onlyCanHavePermission =
-      propriety !== undefined ? propriety : undefined;
+    const { user, body } = request;
 
+    const hasExclusivePropriety = permission.fields.some((p) =>
+      body.hasOwnProperty(p.proprietyName),
+    );
     if (
       !permission.permissions ||
-      (request.params.id === user.userId && onlyCanHavePermission === undefined)
+      (request.params.id === user.userId && hasExclusivePropriety === false)
     ) {
       return true;
     }
