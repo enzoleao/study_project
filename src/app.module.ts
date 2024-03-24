@@ -6,7 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { RolesModule } from './roles/roles.module';
-import { IsUniqueConstraint } from './common/validators/IsUniqueValidator/is-unique.class';
+import { IsUniqueConstraint } from './common/validators/is-unique-validator/is-unique.class';
 
 @Module({
   imports: [

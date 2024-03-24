@@ -33,7 +33,9 @@ export class UsersController {
     private readonly updateUserUseCase: UpdateUserUseCase,
   ) {}
 
-  @Permissions('users.get')
+  @Permissions({
+    permissions: ['users.get'],
+  })
   @ApiPaginatedResponse(UserOutputDTO)
   @UseGuards(JwtAuthGuard, PermissionGuard)
   @Get()
@@ -60,7 +62,10 @@ export class UsersController {
     };
   }
 
-  @Permissions('users.update')
+  @Permissions({
+    permissions: ['users.update'],
+    fields: [{ proprietyName: 'roleId', required: true }],
+  })
   @Patch(':id')
   @UseGuards(JwtAuthGuard, PermissionGuard)
   async update(

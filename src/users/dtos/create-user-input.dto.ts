@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
-import { isUnique } from 'src/common/validators/IsUniqueValidator/is-unique.decorator';
+import { isUnique } from 'src/common/validators/is-unique-validator/is-unique.decorator';
 
 export class CreateUserInputDTO {
   @IsNotEmpty({ message: 'O campo E-mail não pode está vázio' })

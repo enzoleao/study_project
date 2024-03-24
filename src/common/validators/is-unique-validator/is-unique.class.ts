@@ -14,7 +14,6 @@ export class IsUniqueConstraint implements ValidatorConstraintInterface {
 
   async validate(value: any, args?: ValidationArguments): Promise<boolean> {
     const { modelName, propertyName }: IsUniqueInterface = args.constraints[0];
-
     const count = await this.prismaService[modelName].count({
       where: {
         [propertyName]: value,

@@ -1,6 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
-import { isUnique } from 'src/common/validators/IsUniqueValidator/is-unique.decorator';
+import {
+  IsString,
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsNumber,
+} from 'class-validator';
+import { isUnique } from 'src/common/validators/is-unique-validator/is-unique.decorator';
 
 export class UpdateUserInputDTO {
   @IsOptional()
@@ -28,6 +34,7 @@ export class UpdateUserInputDTO {
     example: '1',
     required: true,
   })
+  @IsNumber({}, { message: 'O campo devera ser do tipo number' })
   roleId: number;
 
   @IsOptional()
