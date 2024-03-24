@@ -33,7 +33,7 @@ export class PermissionGuard implements CanActivate {
     );
     if (
       !permission.permissions ||
-      (request.params.id === user.userId && hasExclusivePropriety === false)
+      (request.params.id === user.userId && !hasExclusivePropriety)
     ) {
       return true;
     }
