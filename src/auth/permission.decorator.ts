@@ -1,4 +1,9 @@
 import { SetMetadata } from '@nestjs/common';
 
-export const Permissions = (...args: string[]) =>
+export interface PermissionArgument {
+  permissions: string[];
+  fields?: { proprietyName: string; required: boolean }[];
+}
+
+export const Permissions = (args: PermissionArgument) =>
   SetMetadata('permissions', args);

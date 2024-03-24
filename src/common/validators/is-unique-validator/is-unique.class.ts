@@ -4,8 +4,8 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { IsUniqueInterface } from './isUnique.decorator';
 import { PrismaService } from '../../database/prisma.service';
+import { IsUniqueInterface } from './is-unique.decorator';
 
 @ValidatorConstraint({ name: 'IsUniqueConstraint', async: true })
 @Injectable()
@@ -14,7 +14,6 @@ export class IsUniqueConstraint implements ValidatorConstraintInterface {
 
   async validate(value: any, args?: ValidationArguments): Promise<boolean> {
     const { modelName, propertyName }: IsUniqueInterface = args.constraints[0];
-
     const count = await this.prismaService[modelName].count({
       where: {
         [propertyName]: value,

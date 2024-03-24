@@ -1,5 +1,5 @@
 import { ValidationOptions, registerDecorator } from 'class-validator';
-import { IsUniqueConstraint } from './isUnique.class';
+import { IsUniqueConstraint } from './is-unique.class';
 
 // Decorator options interface
 export interface IsUniqueInterface {

@@ -26,7 +26,7 @@ export class AuthUseCase {
     if (!user || !passwordMatch)
       throw new NotFoundException('E-mail e/ou senha estão incorretos');
     const token = sign({ ...user }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN,
+      expiresIn: parseInt(process.env.JWT_EXPIRES_IN),
     });
     if (!passport)
       return {
