@@ -62,10 +62,6 @@ export class UsersController {
     };
   }
 
-  @Permissions({
-    permissions: ['users.update'],
-    fields: [{ proprietyName: 'roleId', required: true }],
-  })
   @Patch(':id')
   @UseGuards(JwtAuthGuard, PermissionGuard)
   async update(
