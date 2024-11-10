@@ -1,5 +1,5 @@
 export interface IFindUsersFilter {
-  name?: string;
+  firstName?: string;
   email?: string;
   page?: number;
   perPage?: number;

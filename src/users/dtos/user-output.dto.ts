@@ -10,7 +10,7 @@ export class UserOutputDTO {
     example: 'Juvenal Juvenelson',
     required: false,
   })
-  name: string;
+  firstName: string;
   @ApiProperty({
     example: 'admin@admin.com.br',
     required: false,

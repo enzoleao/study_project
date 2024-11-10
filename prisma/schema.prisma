@@ -16,17 +16,20 @@ datasource db {
 }
 
 model Users {
-  id        String   @id @default(uuid())
-  name      String
-  email      String @unique
-  roleId Int @default(2) @map("role_id")
-  password String
-  createdAt DateTime @map("created_at") @default(now())
-  updatedAt DateTime? @map("updated_at")
-  deletedAt DateTime? @map("deleted_at")
+  id         String    @id @default(uuid())
+  firstName  String    @map("first_name")
+  lastName   String    @map("last_name")
+  email      String    @unique
+  cpf        String    @unique
+  birthday   DateTime  @db.Date
+  password   String
 
-  role    Roles    @relation(fields: [roleId], references: [id])
+  roleId     Int       @default(2) @map("role_id")
+  role       Roles     @relation(fields: [roleId], references: [id])
 
+  createdAt  DateTime  @map("created_at") @default(now())
+  updatedAt  DateTime? @map("updated_at")
+  deletedAt  DateTime? @map("deleted_at")
 
   @@map("users")
 }
@@ -58,9 +61,9 @@ model Permissions {
 
 model RolesHasPermissions {
   roleId Int @map("role_id")
-  permissionId Int @map("permission_id")
-
   role       Roles     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  
+  permissionId Int @map("permission_id")
   permission   Permissions @relation(fields: [permissionId], references: [id], onDelete: Cascade)
 
   

@@ -14,7 +14,7 @@ export class AuthenticateUserOutputDTO {
   })
   user: {
     id: string;
-    name: string;
+    firstName: string;
     email: string;
     password: undefined;
     createdAt: Date;

@@ -20,8 +20,11 @@ export class IUserRepository implements UsersRepository {
   async create(user: ICreateUserProps): Promise<UserOutputDTO> {
     const userCreated = await this.userRepository.create({
       data: {
-        name: user.name,
+        firstName: user.firstName,
+        lastName: 'Leao',
+        cpf: '02401417257',
         email: user.email,
+        birthday: '2024-10-24',
         password: user.password,
       },
     });
@@ -45,7 +48,7 @@ export class IUserRepository implements UsersRepository {
         },
         select: {
           id: true,
-          name: true,
+          firstName: true,
           email: true,
           roleId: false,
           role: true,

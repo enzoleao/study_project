@@ -6,9 +6,10 @@ import { CreateUserUseCase } from './use-cases/create-user/create-user.usecase';
 import { ListUsersUseCase } from './use-cases/all-users/all-users.use.case';
 import { RolesModule } from 'src/roles/roles.module';
 import { UpdateUserUseCase } from './use-cases/update-user/update-user.usecase';
+import { MailModule } from 'src/services/mail/mail.module';
 
 @Module({
-  imports: [RolesModule],
+  imports: [RolesModule, MailModule],
   providers: [
     {
       provide: UsersRepository,

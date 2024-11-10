@@ -1,7 +1,13 @@
-FROM node:lts-alpine
+FROM node:18
 
-RUN apk add --no-cache bash
+WORKDIR /app
 
-USER node
+COPY package*.json ./
 
-WORKDIR /home/node/app
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+CMD [ "npm", "run", "start:dev" ]

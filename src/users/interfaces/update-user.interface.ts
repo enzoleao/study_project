@@ -1,6 +1,6 @@
 export interface IUpdateUserProps {
   id?: string;
-  name: string;
+  firstName: string;
   email: string;
   roleId: number;
   password: string;

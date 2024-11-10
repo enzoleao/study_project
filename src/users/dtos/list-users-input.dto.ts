@@ -43,7 +43,7 @@ export class ListUsersInputDto {
     example: 'Juvenal Juvenio',
     required: false,
   })
-  name?: string;
+  firstName?: string;
 
   @IsOptional()
   @ApiProperty({

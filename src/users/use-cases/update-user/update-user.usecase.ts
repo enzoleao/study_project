@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { hash } from 'bcrypt';
-import { UpdateUserInputDTO } from 'src/users/dtos/update-user-input.dto';
-import { UpdateUserOutputDTO } from 'src/users/dtos/update-user-output.dto';
+import { UpdateUserInputDTO, UpdateUserOutputDTO } from 'src/users/dtos';
 import { IUpdateUserProps } from 'src/users/interfaces/update-user.interface';
 import { UsersRepository } from 'src/users/repositories/user.repository';
 
@@ -22,7 +21,7 @@ export class UpdateUserUseCase {
       : undefined;
 
     const user: IUpdateUserProps = {
-      name: updateUserInputDto.name,
+      firstName: updateUserInputDto.firstName,
       email: updateUserInputDto.email,
       roleId: updateUserInputDto.roleId,
       password: passwordHashed,
@@ -32,7 +31,7 @@ export class UpdateUserUseCase {
 
     return {
       updateUserOutputDto: {
-        name: updateUserInputDto.name,
+        firstName: updateUserInputDto.firstName,
         email: updateUserInputDto.email,
       },
     };

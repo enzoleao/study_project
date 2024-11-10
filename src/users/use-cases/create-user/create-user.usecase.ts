@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { hash } from 'bcrypt';
-import { CreateUserInputDTO } from 'src/users/dtos/create-user-input.dto';
-import { CreateUserOutputDTO } from 'src/users/dtos/create-user-output.dto';
+import { MailService } from 'src/services/mail/mail.service';
+import { CreateUserInputDTO, CreateUserOutputDTO } from 'src/users/dtos';
 import { ICreateUserProps } from 'src/users/interfaces/user.interface';
 import { UsersRepository } from 'src/users/repositories/user.repository';
 
@@ -15,7 +15,10 @@ interface ICreateUserUseCaseOutput {
 
 @Injectable()
 export class CreateUserUseCase {
-  constructor(private readonly usersRepository: UsersRepository) {}
+  constructor(
+    private readonly usersRepository: UsersRepository,
+    private mailService: MailService,
+  ) {}
 
   async execute({
     createUserInputDto,
@@ -23,17 +26,19 @@ export class CreateUserUseCase {
     const passwordHashed = await hash(createUserInputDto.password, 8);
 
     const user: ICreateUserProps = {
-      name: createUserInputDto.name,
+      firstName: createUserInputDto.firstName,
+      lastName: createUserInputDto.lastName,
       email: createUserInputDto.email,
       password: passwordHashed,
     };
 
-    await this.usersRepository.create(user);
+    //await this.usersRepository.create(user);
+    this.mailService.sendUserConfirmation(user, 'olaa');
 
     return {
       userOutputDto: {
         id: user.id,
-        name: user.name,
+        firstName: user.firstName,
         email: user.email,
         createdAt: user.createdAt,
       },

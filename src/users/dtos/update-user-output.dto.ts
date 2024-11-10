@@ -10,7 +10,7 @@ export class UpdateUserOutputDTO {
     example: 'Juvenal Juvenelson',
     required: false,
   })
-  name: string;
+  firstName: string;
 
   @IsOptional()
   @IsNotEmpty({ message: 'O campo E-mail não pode está vázio' })

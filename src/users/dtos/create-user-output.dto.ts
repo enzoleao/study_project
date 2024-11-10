@@ -6,7 +6,7 @@ export class CreateUserOutputDTO {
     description: 'Juvenal Juvenelson',
     example: 'Nome do usuário cadastrado',
   })
-  name: string;
+  firstName: string;
   @ApiProperty({
     description: 'E-mail do usuário cadastrado',
     example: 'rehmat.sayani@gmail.com',

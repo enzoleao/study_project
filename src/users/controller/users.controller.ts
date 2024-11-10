@@ -8,21 +8,25 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { CreateUserInputDTO } from '../dtos/create-user-input.dto';
-import { CreateUserOutputDTO } from '../dtos/create-user-output.dto';
-import { ListUsersUseCase } from '../use-cases/all-users/all-users.use.case';
-import { ListUsersInputDto } from '../dtos/list-users-input.dto';
-import { PaginatedOutputDto } from 'src/common/dtos/paginated-output.dto';
-import { UserOutputDTO } from '../dtos/user-output.dto';
 import { ApiPaginatedResponse } from 'src/common/decorators/api-paginated-response.decorator';
-import { CreateUserUseCase } from '../use-cases/create-user/create-user.usecase';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { PermissionGuard } from 'src/auth/permission.guard';
 import { Permissions } from 'src/auth/permission.decorator';
 import { ApiTags } from '@nestjs/swagger';
 import { ApiNormalResponse } from 'src/common/decorators/api-normal-response.decorator';
-import { UpdateUserInputDTO } from '../dtos/update-user-input.dto';
-import { UpdateUserUseCase } from '../use-cases/update-user/update-user.usecase';
+import {
+  CreateUserInputDTO,
+  CreateUserOutputDTO,
+  ListUsersInputDto,
+  UpdateUserInputDTO,
+  UserOutputDTO,
+} from '../dtos';
+import { PaginatedOutputDto } from 'src/common/dtos/paginated-output.dto';
+import {
+  CreateUserUseCase,
+  ListUsersUseCase,
+  UpdateUserUseCase,
+} from '../use-cases';
 
 @ApiTags('Users')
 @Controller('users')
